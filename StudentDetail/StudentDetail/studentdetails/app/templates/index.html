@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if student %}Edit{% else %}Add{% endif %} Student Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{% if student %}Edit{% else %}Add{% endif %} Your Details</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{% if student %}{{ student.name }}{% endif %}" required><br>
+
+            <label for="college_id">College ID:</label>
+            <input type="number" id="college_id" name="college_id" value="{% if student %}{{ student.college_id }}{% endif %}" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{% if student %}{{ student.email }}{% endif %}" required><br>
+
+            <label for="cgpa">CGPA:</label>
+            <input type="number" id="cgpa" name="cgpa" value="{% if student %}{{ student.cgpa }}{% endif %}" step="0.01" required><br>
+
+            <label for="branch">Branch:</label>
+            <input type="text" id="branch" name="branch" value="{% if student %}{{ student.branch }}{% endif %}" maxlength="30" required><br>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" maxlength="200" required>{% if student %}{{ student.address }}{% endif %}</textarea><br>
+
+            <input type="submit" value="{% if student %}Update{% else %}Submit{% endif %}">
+        </form>
+    </div>
+</body>
+</html>
